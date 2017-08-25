@@ -5,37 +5,37 @@ document.addEventListener('DOMContentLoaded', function () {
         {
             id: 1,
             name: 'Salsa',
-            url: '/img/kitten1.jpg',
+            url: 'img/kitten1.jpg',
             counter: 0
         },
         {
             id: 2,
             name: 'Pearl',
-            url: '/img/koshenka.jpg',
+            url: 'img/koshenka.jpg',
             counter: 0
         },
         {
             id: 3,
             name: 'Ebony',
-            url: '/img/kitten3.jpg',
+            url: 'img/kitten3.jpg',
             counter: 0
         },
         {
             id: 4,
             name: 'Misty',
-            url: '/img/kitten4.jpg',
+            url: 'img/kitten4.jpg',
             counter: 0
         },
         {
             id: 5,
             name: 'Buttercup',
-            url: '/img/kitten5.jpg',
+            url: 'img/kitten5.jpg',
             counter: 0
         },
         {
             id: 6,
             name: 'Mocha',
-            url: '/img/kitten6.jpg',
+            url: 'img/kitten6.jpg',
             counter: 0
         },
     ]
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return JSON.parse(localStorage.notes);
         },
         getKittenByName: function (name) {
-            kittens = JSON.parse(localStorage.notes);
+            var kittens = JSON.parse(localStorage.notes);
             var kitten = undefined;
             for (var i = 0; i < kittens.length; i++) {
                 if (name === kittens[i].name) {
@@ -84,6 +84,9 @@ document.addEventListener('DOMContentLoaded', function () {
         getFirstKitten: function () {
             return model.getFirstKitten();
         },
+        getKittenByName: function (name) {
+            return model.getKittenByName(name);
+        },
         init: function () {
             model.init();
             viewMenu.init();
@@ -99,6 +102,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 var menu_item = document.createElement('li');
                 menu_item.setAttribute('class', 'kitten');
                 menu_item.textContent = kittenName;
+                menu_item.addEventListener('click', function () {
+                    viewKitten.render(octopus.getKittenByName(kittenName));
+                });
                 menu.appendChild(menu_item);
             });
         }
@@ -106,11 +112,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var viewKitten = {
         init: function () {
-            var kittenContainer = document.querySelector('.kitten-container');
             var kitten = octopus.getFirstKitten();
+            viewKitten.render(kitten);
         },
-        render: function () {
+        render: function (kitten) {
+            var kittenContainer = document.querySelector('.kitten-container');
+            // Clear container.
+            while(kittenContainer.firstChild) kittenContainer.removeChild(kittenContainer.firstChild);
+            var name = document.createElement('h2');
+            var image = document.createElement('img');
+            var clicker = document.createElement('span');
 
+            name.textContent = kitten.name;
+            image.setAttribute('src', kitten.url);
+            clicker.textContent = kitten.counter;
+            kittenContainer.appendChild(name);
+            kittenContainer.appendChild(image);
         }
     }
     
