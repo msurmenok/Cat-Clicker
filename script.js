@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', function () {
         getKittenByName: function (name) {
             return model.getKittenByName(name);
         },
+        changeKitten: function (name) {
+            viewKitten.render(octopus.getKittenByName(name));
+        },
         init: function () {
             model.init();
             viewMenu.init();
@@ -103,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 menu_item.setAttribute('class', 'kitten');
                 menu_item.textContent = kittenName;
                 menu_item.addEventListener('click', function () {
-                    viewKitten.render(octopus.getKittenByName(kittenName));
+                    octopus.changeKitten(kittenName);
                 });
                 menu.appendChild(menu_item);
             });
@@ -119,15 +122,17 @@ document.addEventListener('DOMContentLoaded', function () {
             var kittenContainer = document.querySelector('.kitten-container');
             // Clear container.
             while(kittenContainer.firstChild) kittenContainer.removeChild(kittenContainer.firstChild);
+
             var name = document.createElement('h2');
             var image = document.createElement('img');
-            var clicker = document.createElement('span');
+            var clicker = document.createElement('p');
 
             name.textContent = kitten.name;
             image.setAttribute('src', kitten.url);
-            clicker.textContent = kitten.counter;
+            clicker.textContent = kitten.counter + ' clicks!';
             kittenContainer.appendChild(name);
             kittenContainer.appendChild(image);
+            kittenContainer.appendChild(clicker);
         }
     }
     
