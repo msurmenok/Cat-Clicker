@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
     ]
 
+
     // Model.
     var model = {
         init: function () {
@@ -59,41 +60,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
             return kitten;
+        },
+        getAllKittensNames: function () {
+            var kittens = JSON.parse(localStorage.notes);
+            names = [];
+            for (var i = 0; i < kittens.length; i++) {
+                names.append(kittens[i].name);
+            }
         }
     }
 
 
+    // Octopus.
+    var octopus = {
+
+    }
+
+
+    var viewMenu = {
+
+    }
+
+    var viewKitten = {
+        
+    }
+    
 
 
 
 
 
-
-
-
-
-    // Cats' names.
-    var names = ['Salsa', 'Pearl', 'Ebony', 'Misty', 'Buttercup', 'Mocha', 'Jailbird', 'Chilly', 'Cyclone'];
 
     // Create main containers
     var menu = document.querySelector('.menu');
     var kittenContainer = document.querySelector('.kitten-container');
 
-    // Menu (anchor links)
-    var navigation = document.createElement('div');
-    navigation.setAttribute('class', 'menu');
-    var menu = document.createElement('ul');
-    navigation.appendChild(menu);
-
-    for (var i = 0; i < names.length; i++) {
-        var linkContainer = document.createElement('li');
-        var link = document.createElement('a');
-        link.textContent = names[i];
-        link.setAttribute('href', '#' + names[i]);
-        linkContainer.appendChild(link);
-        menu.appendChild(linkContainer);
-    }
-    container.appendChild(navigation);
 
     // Callback function with closure.
     countClicks = function (counterCopy) {
@@ -126,13 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var kittenName = document.createElement('h2');
         kittenName.textContent = names[i];
 
-        var anchor = document.createElement('a');
-        anchor.setAttribute('name', names[i])
 
-        item.appendChild(anchor);
-        item.appendChild(kittenName);
-        item.appendChild(kittenImage);
-        item.appendChild(counterContainer);
         item.appendChild(document.createElement('hr'));
 
         // Increment number of 'clicks' when user clicked on an image.
@@ -140,6 +135,5 @@ document.addEventListener('DOMContentLoaded', function () {
         kittenContainer.appendChild(item);
     }
 
-    container.appendChild(kittenContainer);
 
 });
