@@ -63,10 +63,11 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         getAllKittensNames: function () {
             var kittens = JSON.parse(localStorage.notes);
-            names = [];
+            var names = [];
             for (var i = 0; i < kittens.length; i++) {
-                names.append(kittens[i].name);
+                names.push(kittens[i].name);
             }
+            return names;
         },
         getFirstKitten: function () {
             var kittens = JSON.parse(localStorage.notes);
@@ -77,24 +78,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Octopus.
     var octopus = {
-
+        getNames: function () {
+            return model.getAllKittensNames();
+        },
+        getFirstKitten: function () {
+            return model.getFirstKitten();
+        },
+        init: function () {
+            model.init();
+            viewMenu.init();
+            viewKitten.init();
+        }
     }
 
 
     var viewMenu = {
         init: function () {
             var menu = document.querySelector('.menu');
-            viewMenu.render();
-        },
-        render: function () {
-            
+            octopus.getNames().forEach(function (kittenName) {
+                var menu_item = document.createElement('li');
+                menu_item.setAttribute('class', 'kitten');
+                menu_item.textContent = kittenName;
+                menu.appendChild(menu_item);
+            });
         }
-    }
+    };
 
     var viewKitten = {
         init: function () {
             var kittenContainer = document.querySelector('.kitten-container');
-            // get the first kitten
+            var kitten = octopus.getFirstKitten();
         },
         render: function () {
 
@@ -105,44 +118,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    // Callback function with closure.
-    countClicks = function (counterCopy) {
-        return function () {
-            var counter = parseInt(counterCopy.textContent);
-            console.log('Clicked!');
-            counter += 1;
-            console.log(counterCopy);
-            counterCopy.textContent = '' + counter;
-        }
-    }
-
-    // Generate items with cats' images and information.
-    for (var i = 0; i < names.length; i++) {
-
-        var item = document.createElement('div');
-
-        var kittenImage = document.createElement('img');
-        var url = 'http://loremflickr.com/400/300/cat?random=' + [i+1];
-        console.log(url);
-        kittenImage.setAttribute('src', url);
-        kittenImage.setAttribute('width', '400');
-
-        var counterContainer = document.createElement('p');
-        counterContainer.textContent = 'clicks ';
-        var counter = document.createElement('span');
-        counter.textContent = 0;
-        counterContainer.appendChild(counter);
-
-        var kittenName = document.createElement('h2');
-        kittenName.textContent = names[i];
-
-
-        item.appendChild(document.createElement('hr'));
-
         // Increment number of 'clicks' when user clicked on an image.
-        kittenImage.addEventListener('click', (countClicks)(counter), false);
-        kittenContainer.appendChild(item);
-    }
+        // kittenImage.addEventListener('click', (countClicks)(counter), false);
+        // kittenContainer.appendChild(item);
 
-
+    octopus.init();
 });
