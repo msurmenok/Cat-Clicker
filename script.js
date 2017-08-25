@@ -72,6 +72,15 @@ document.addEventListener('DOMContentLoaded', function () {
         getFirstKitten: function () {
             var kittens = JSON.parse(localStorage.notes);
             return kittens[0];
+        },
+        addClick: function (kitten) {
+            var kittens = JSON.parse(localStorage.notes);
+            kittens.forEach(function (kit) {
+               if (kit.name == kitten.name) {
+                   kit.counter += 1;
+               }
+            });
+            localStorage.notes = JSON.stringify(kittens);
         }
     }
 
@@ -90,14 +99,19 @@ document.addEventListener('DOMContentLoaded', function () {
         changeKitten: function (name) {
             viewKitten.render(octopus.getKittenByName(name));
         },
+        addClick: function (kitten) {
+            model.addClick(kitten);
+            viewKitten.renderClicker(model.getKittenByName(kitten.name));
+        },
         init: function () {
             model.init();
             viewMenu.init();
             viewKitten.init();
         }
-    }
+    };
 
 
+    // View for navigation.
     var viewMenu = {
         init: function () {
             var menu = document.querySelector('.menu');
@@ -113,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
+    // View to render individual kitten.
     var viewKitten = {
         init: function () {
             var kitten = octopus.getFirstKitten();
@@ -124,25 +139,29 @@ document.addEventListener('DOMContentLoaded', function () {
             while(kittenContainer.firstChild) kittenContainer.removeChild(kittenContainer.firstChild);
 
             var name = document.createElement('h2');
-            var image = document.createElement('img');
-            var clicker = document.createElement('p');
-
             name.textContent = kitten.name;
-            image.setAttribute('src', kitten.url);
-            clicker.textContent = kitten.counter + ' clicks!';
             kittenContainer.appendChild(name);
+
+            var image = document.createElement('img');
+            image.setAttribute('src', kitten.url);
+            image.addEventListener('click', function () {
+                octopus.addClick(kitten);
+            });
+
             kittenContainer.appendChild(image);
+
+            viewKitten.renderClicker(kitten);
+        },
+        renderClicker: function (kitten) {
+            var kittenContainer = document.querySelector('.kitten-container');
+            var clicker = document.querySelector('p');
+            if (!clicker) {
+                clicker = document.createElement('p');
+            }
+            clicker.textContent = kitten.counter + ' clicks!';
             kittenContainer.appendChild(clicker);
         }
-    }
-    
-
-
-
-
-        // Increment number of 'clicks' when user clicked on an image.
-        // kittenImage.addEventListener('click', (countClicks)(counter), false);
-        // kittenContainer.appendChild(item);
+    };
 
     octopus.init();
 });
