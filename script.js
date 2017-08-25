@@ -67,6 +67,10 @@ document.addEventListener('DOMContentLoaded', function () {
             for (var i = 0; i < kittens.length; i++) {
                 names.append(kittens[i].name);
             }
+        },
+        getFirstKitten: function () {
+            var kittens = JSON.parse(localStorage.notes);
+            return kittens[0];
         }
     }
 
@@ -78,22 +82,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     var viewMenu = {
-
+        init: function () {
+            var menu = document.querySelector('.menu');
+            viewMenu.render();
+        },
+        render: function () {
+            
+        }
     }
 
     var viewKitten = {
-        
+        init: function () {
+            var kittenContainer = document.querySelector('.kitten-container');
+            // get the first kitten
+        },
+        render: function () {
+
+        }
     }
     
 
 
-
-
-
-
-    // Create main containers
-    var menu = document.querySelector('.menu');
-    var kittenContainer = document.querySelector('.kitten-container');
 
 
     // Callback function with closure.
