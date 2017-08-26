@@ -158,19 +158,29 @@ document.addEventListener('DOMContentLoaded', function () {
         init: function () {
             this.panel = document.querySelector('#new-kitten-form');
             this.showPanelBtn = document.querySelector('#show-panel');
+            this.cancelBtn = document.querySelector('#cancel');
+            this.saveBtn = document.querySelector('#save');
+
             this.isVisible = false;
-            
+
             // Add event handler for button Admin.
             this.showPanelBtn.addEventListener('click', (
                 function (self) {
                     return function (e) {
                         self.isVisible = true;
                         self.render();
-                        console.log(self.isVisible);
-                        e.preventDefault();
                     }
                 }
             )(this));
+
+            // Add event handler for Cancel button.
+            this.cancelBtn.addEventListener('click', (
+                function (self) {
+                    return function (e) {
+                        self.isVisible = false;
+                        self.render();
+                    }
+                })(this));
             this.render();
         },
         render: function () {
