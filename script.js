@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.render();
         },
         render: function () {
+            this.menu.innerHTML = '';
             octopus.getNames().forEach((function (menu) {
                 return function (kittenName) {
                     var menu_item = document.createElement('li');
