@@ -3,37 +3,31 @@ document.addEventListener('DOMContentLoaded', function () {
     // Data to load.
     var cats = [
         {
-            id: 1,
             name: 'Salsa',
             url: 'img/kitten1.jpg',
             counter: 0
         },
         {
-            id: 2,
             name: 'Pearl',
             url: 'img/koshenka.jpg',
             counter: 0
         },
         {
-            id: 3,
             name: 'Ebony',
             url: 'img/kitten3.jpg',
             counter: 0
         },
         {
-            id: 4,
             name: 'Misty',
             url: 'img/kitten4.jpg',
             counter: 0
         },
         {
-            id: 5,
             name: 'Buttercup',
             url: 'img/kitten5.jpg',
             counter: 0
         },
         {
-            id: 6,
             name: 'Mocha',
             url: 'img/kitten6.jpg',
             counter: 0
@@ -107,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
             model.init();
             viewMenu.init();
             viewKitten.init();
+            viewAdmin.init();
         }
     };
 
@@ -115,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var viewMenu = {
         init: function () {
             this.menu = document.querySelector('.menu');
-            console.log(this.menu);
             this.render();
         },
         render: function () {
@@ -134,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // View to render individual kitten.
+    // View for rendering individual kitten.
     var viewKitten = {
         init: function () {
             this.kittenImageContainer = document.querySelector('.kitten-container .image-container');
@@ -158,6 +152,38 @@ document.addEventListener('DOMContentLoaded', function () {
             this.kittenClicks.textContent = kitten.counter + ' clicks!';
         }
     };
+    
+    // View for admin panel.
+    var viewAdmin = {
+        init: function () {
+            this.panel = document.querySelector('#new-kitten-form');
+            this.showPanelBtn = document.querySelector('#show-panel');
+            this.isVisible = false;
+            
+            // Add event handler for button Admin.
+            this.showPanelBtn.addEventListener('click', (
+                function (self) {
+                    return function (e) {
+                        self.isVisible = true;
+                        self.render();
+                        console.log(self.isVisible);
+                        e.preventDefault();
+                    }
+                }
+            )(this));
+            this.render();
+        },
+        render: function () {
+            // Show and hide panel
+            console.log('From render function. Is visible? ' + this.isVisible);
+            if (this.isVisible) {
+                this.panel.style.display = 'block';
+            }
+            else {
+                this.panel.style.display = 'none';
+            }
+        }
+    }
 
     octopus.init();
 });
