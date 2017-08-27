@@ -1,3 +1,7 @@
+* {
+    font-family: 'Nunito', sans-serif;
+}
+
 .menu li:hover {
     font-weight: bold;
 }
@@ -16,6 +20,7 @@
 }
 
 .kitten-container img {
+    border-radius: 5px;
     max-width: 100%;
     max-height: 500px;
 }
@@ -26,4 +31,13 @@
 
 #save {
     margin-left: 20px;
+}
+
+span {
+    font-size: 1.2em;
+}
+
+#logo h1{
+    font-family: 'Satisfy', cursive;
+    font-size: 4em;
 }
