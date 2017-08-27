@@ -5,32 +5,42 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <title>Cat Clicker</title>
 </head>
 <body>
     <div class="container">
-        <div class="navigation">
-            <ul class="menu">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="logo">Cat Clicker</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 navigation">
+                <ul class="menu">
 
-            </ul>
-        </div>
-        <div class="kitten-container">
-            <h2></h2>
-            <div class="image-container"></div>
-            <br>
-            <span></span>
-        </div>
-        <div class="admin-panel">
-            <button type="button" id="show-panel">Admin</button>
-            <form id="new-kitten-form">
-                <input type="text" id="name" placeholder="Kitten Name">
+                </ul>
+            </div>
+            <div class="col-md-10 kitten-container">
+                <h2></h2>
+                <div class="image-container"></div>
                 <br>
-                <input type="text" id="url" placeholder="Picture URL">
-                <br>
-                <button type="button" id="cancel">Cancel</button>
-                <button type="button" id="save">Save</button>
-            </form>
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="admin-panel col-md-12">
+                <button type="button" id="show-panel" class="btn btn-default btn-lg">Admin</button>
+                <form id="new-kitten-form" class="form-group">
+                    <input type="text" id="name" placeholder="Kitten Name" class="form-control">
+                    <br>
+                    <input type="text" id="url" placeholder="Picture URL" class="form-control">
+                    <br>
+                    <button type="button" id="cancel" class="btn btn-default btn-lg">Cancel</button>
+                    <button type="button" id="save" class="btn btn-success btn-lg">Save</button>
+                </form>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
