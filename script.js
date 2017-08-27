@@ -75,6 +75,11 @@ document.addEventListener('DOMContentLoaded', function () {
                }
             });
             localStorage.notes = JSON.stringify(kittens);
+        },
+        addNewKitten: function (kitten) {
+            var kittens = this.getAllKittens();
+            kittens.push(kitten);
+            localStorage.notes = JSON.stringify(kittens);
         }
     };
 
@@ -96,6 +101,15 @@ document.addEventListener('DOMContentLoaded', function () {
         addClick: function (kitten) {
             model.addClick(kitten);
             viewKitten.renderCounter(model.getKittenByName(kitten.name));
+        },
+        addNewKitten: function (name, url) {
+            var kitten = {
+                name: name,
+                url: url,
+                counter: 0
+            };
+            model.addNewKitten(kitten);
+            viewMenu.render();
         },
         init: function () {
             model.init();
@@ -160,6 +174,8 @@ document.addEventListener('DOMContentLoaded', function () {
             this.showPanelBtn = document.querySelector('#show-panel');
             this.cancelBtn = document.querySelector('#cancel');
             this.saveBtn = document.querySelector('#save');
+            this.name = document.querySelector('#name');
+            this.url = document.querySelector('#url');
 
             this.isVisible = false;
 
@@ -176,16 +192,31 @@ document.addEventListener('DOMContentLoaded', function () {
             // Add event handler for Cancel button.
             this.cancelBtn.addEventListener('click', (
                 function (self) {
-                    return function (e) {
+                    return function () {
+                        console.log(self.name.value);
                         self.isVisible = false;
                         self.render();
                     }
                 })(this));
+
+            // Add event handler for Save button.
+            this.saveBtn.addEventListener('click', (
+                function (self) {
+                    return function () {
+                        var name = self.name.value;
+                        var url = self.url.value;
+                        octopus.addNewKitten(name, url);
+                        self.isVisible = false;
+                        self.render();
+                    }
+                }
+            )(this));
             this.render();
         },
         render: function () {
+            this.name.value = '';
+            this.url.value = '';
             // Show and hide panel
-            console.log('From render function. Is visible? ' + this.isVisible);
             if (this.isVisible) {
                 this.panel.style.display = 'block';
             }
